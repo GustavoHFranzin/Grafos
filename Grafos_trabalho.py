@@ -52,6 +52,13 @@ class grafo:
             matrix[a][b] = 2 if (a == b) else 1
         print(matrix)
 
+
+    def grafo_transposto(self):
+        output = {}
+        for e, v in grafo_direcionado.items():
+            output[e] = sorted(v, reverse=False)
+        print(output)
+
 # Create the dictionary with graph elements
 graph = {
             'a': ['b', 'c'],
@@ -59,6 +66,22 @@ graph = {
             'c': ['d'],
             'd': ['e'],
             'e': []
+    }
+
+grafo_complemento_de_graph = {
+            'a': ['d'],
+            'b': [],
+            'c': [],
+            'd': [],
+            'e': ['e']
+    }
+
+graph_completo = {
+            'a': ['b', 'c', 'd'],
+            'b': ['c', 'd', 'e'],
+            'c': ['d'],
+            'd': ['e'],
+            'e': ['a']
     }
 
 grafo_direcionado = {
@@ -72,14 +95,13 @@ grafo_direcionado = {
 g = grafo(graph)
 d = grafo(grafo_direcionado)
 
-#print(g.get_vertices())
-print(d.get_vertices())
-#print(g.print_grafo_lista())
-print(d.remove_vertice('b'))
-print(d.get_vertices())
-d.add_vertice('f')
-print(d.get_vertices())
+#Me parece que ao usar a função find_edge com um grafo DIRECIONADO ela já me retorna
+#o grafo transposto!!! Confere isso ai
 
+print(d.find_edges())
+print('')
+print('Grafo transposto:')
+d.grafo_transposto()
 
 # def le_txt(self, dados):
 #     self.dados = dados
