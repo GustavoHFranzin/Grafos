@@ -47,4 +47,15 @@ g.add_vertice("f")
 print(g.get_vertices())
 
 
+# def le_txt(self, dados):
+#     self.dados = dados
+#     if os.path.isfile('grafo.txt'):  # Verifica se o arquivo esá OK
+#         file = open('grafo.txt', 'r')
+# 
+#         for i in file.readlines():  # Itera por todas as linhas do arquivo
+#             graph = i.strip().split(' ')  # Da o split se contém 1/2 espaços
+#             self.dados.append(graph[0])
+#         print(dados)
+#     return self.dados
+
 
