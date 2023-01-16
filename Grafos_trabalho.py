@@ -53,8 +53,8 @@ class grafo:
         print(matrix)
 
 
-    def grafo_transposto(self):
-        output = {}
+    def grafo_transposto(self):#Tem que verificar se essa função está de correta, é pra ser utilizada nos grafos que são Direcionados, né? Faça testes mudando 
+        output = {}                                 #direto lá no diciionário 'grafo_direcionado' pra ver se o output está de acordo com a definição de transposto
         for e, v in grafo_direcionado.items():
             output[e] = sorted(v, reverse=False)
         print(output)
