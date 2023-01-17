@@ -95,10 +95,10 @@ grafo_direcionado = {
 
 def dic_read_append(arquivo):
     lista_arquivo = open(arquivo,"r").readlines() # Lê o arquivo e usa a readline pra transformar em lista e não em TextIOWrapper
-    if 'directed' in open(arquivo).read(): # Verifica no arquivo inteiro se tem a string 'directed'
-        Grafo_Direcionado_Boolean = True
-    else:
+    if 'undirected' in open(arquivo).read(): # Verifica no arquivo inteiro se tem a string 'directed'
         Grafo_Direcionado_Boolean = False
+    else:
+        Grafo_Direcionado_Boolean = True
     lista_arquivo.pop(0) #Pula a primeira linha
     dicionario = defaultdict(list) # Instancia o dicionário
     for line in lista_arquivo:
