@@ -1,11 +1,11 @@
 from collections import defaultdict
+
 class grafo:
 
     def __init__(self, dicionario_grafo=None):
         if dicionario_grafo is None:
             dicionario_grafo = {}
         self.dicionario_grafo = dicionario_grafo
-
 
     def get_vertices(self):#Mostra todas os vertices NÃO orientado
         return list(self.dicionario_grafo.keys())
@@ -34,8 +34,6 @@ class grafo:
         else:
             self.dicionario_grafo[vertex_1] = [vertex_2]
 
-
-
     def print_grafo_lista(self):#printa a lista de adjacencia para grafos NÃO orientados
         for item in self.dicionario_grafo.items():
             print(item)
@@ -53,12 +51,19 @@ class grafo:
             matrix[a][b] = 2 if (a == b) else 1
         print(matrix)
 
-
     def grafo_transposto(self):#Tem que verificar se essa função está de correta, é pra ser utilizada nos grafos que são Direcionados, né? Faça testes mudando 
         output = {}                                 #direto lá no diciionário 'grafo_direcionado' pra ver se o output está de acordo com a definição de transposto
-        for e, v in grafo_direcionado.items():
-            output[e] = sorted(v, reverse=False)
+        for e, v in self.dicionario_grafo.items(): # chris: Mexi aqui pra ele ler o grafo pra cada grafo que tu colocar
+            output[e] = sorted(v, reverse=False) #chris: descobri que essa é o exercicio 9, e ela ta errada, vou deixar de recordação ai e depois a gente apaga, a certa é a função abaixo V
         print(output)
+
+    def transpor_grafo(self): 
+        graph_trans = defaultdict(list)
+        for source, targets in self.dicionario_grafo.items(): 
+            for target in targets: 
+                graph_trans[target].append(source)
+        graph_trans = dict(graph_trans)
+        print(graph_trans)     
 
 # Create the dictionary with graph elements
 graph = {
@@ -95,33 +100,47 @@ grafo_direcionado = {
 
 def dic_read_append(arquivo):
     lista_arquivo = open(arquivo,"r").readlines() # Lê o arquivo e usa a readline pra transformar em lista e não em TextIOWrapper
-    if 'undirected' in open(arquivo).read(): # Verifica no arquivo inteiro se tem a string 'directed'
-        Grafo_Direcionado_Boolean = False
+    if 'undirected' in open(arquivo).read(): # Verifica no arquivo inteiro se tem a string 'undirected'
+        Grafo_Direcionado_Boolean = False #se houver, coloca a variavel "Grafo_Direcionado_Boolean" como falso
+        lista_arquivo.pop(0) #Pula a primeira linha (linha do directed ou undirected)
+        dicionario = defaultdict(list) # Instancia o dicionário antes dos loops
+        for line in lista_arquivo: #para cada linha na lista de arquivos, faz V
+            key, value = line.strip().split(" ") # Separa cada linha em dois valores (chave e valor) usando o Split(" ") para separar o espaço e o strip() para remover qualquer espaçamento
+            dicionario[key].append(value) # Acrescenta os valores no dicionário sem escrever por cima
+        for key, lista in list(dicionario.items()): #para as variáveis key e lista na lista do dicionário, faz V
+            for value in lista: # para cada valor em I faz V
+                if key not in dicionario[value]: # se a chave nao estiver no dicionario, faz V
+                    dicionario[value].append(key) # Acrescenta a chave nos valores
+        dicionario = dict(dicionario) #passa a variável dict para lista
+        return dicionario, Grafo_Direcionado_Boolean #retorna duas variáveis
     else:
-        Grafo_Direcionado_Boolean = True
-    lista_arquivo.pop(0) #Pula a primeira linha
-    dicionario = defaultdict(list) # Instancia o dicionário
-    for line in lista_arquivo:
-        key, value = line.strip().split(" ") # Separa cada linha em dois valores (chave e valor) usando o Split(" ") para separar o espaço e o strip() para remover qualquer espaçamento
-        dicionario[key].append(value) # Acrescenta os valores no dicionário sem escrever por cima
-    return dict(dicionario), Grafo_Direcionado_Boolean
+        Grafo_Direcionado_Boolean = True #se não houver, coloca a variavel "Grafo_Direcionado_Boolean" como true
+        lista_arquivo.pop(0) #Pula a primeira linha
+        dicionario = defaultdict(list) # Instancia o dicionário
+        for line in lista_arquivo: #para cada linha na lista de arquivos, faz V
+            key, value = line.strip().split(" ") # Separa cada linha em dois valores (chave e valor) usando o Split(" ") para separar o espaço e o strip() para remover qualquer espaçamento
+            dicionario[key].append(value) # Acrescenta os valores no dicionário sem escrever por cima
+        dicionario = dict(dicionario) #passa a variável dict para lista
+        return dicionario, Grafo_Direcionado_Boolean #retorna duas variáveis
 
 grafos, Grafo_Direcionado_Boolean = dic_read_append('grafos1.txt')
-
-#print(grafos)
 #print(Grafo_Direcionado_Boolean)
 
 g = grafo(grafos)
 
 #Me parece que ao usar a função find_edge com um grafo DIRECIONADO ela já me retorna
 #o grafo transposto!!! Confere isso ai
+#chris: às vezes retorna, às vezes não, bizarro
 
 print('')
-print('Arestas: ')
-print(g.find_edges())
+#print('Arestas: ')
+
+g.print_grafo_lista()
+#print('')
+#print(g.find_edges())
 print('')
 print('Grafo transposto:')
-g.grafo_transposto()
+g.transpor_grafo()
 print('')
 print('O grafo é direcionado?: ', Grafo_Direcionado_Boolean)
 print('')

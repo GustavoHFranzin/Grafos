@@ -1,8 +1,4 @@
 directed
-b a
-b e
-c a
-c b
+a b
+b c
 c d
-d b
-e d
