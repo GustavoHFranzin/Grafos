@@ -7,10 +7,25 @@ grafo_undirected =  { "a" : ["c"],
 					}
 					
 					
-grafo_directed        {   "a" : ["c"],
+grafo_directed   =  {   "a" : ["c"],
 						"b" : ["c", "e"],
 						"c" : ["d", "e"],
 						"d" : ["e"],
 						"e" : ["f"],
 						"f" : []
 					}
+					
+grafo_pra_complementar = {
+						'a' : ['b', 'c', 'd'],
+						'b' : [],
+						'c' : [],
+						'd' : []
+					}
+				
+grafo_com_complemento = {
+						'a' : [],
+						'b' : ['a', 'c', 'd'],
+						'c' : ['a', 'b', 'd'],
+						'd' : ['a', 'b', 'c']
+					}
+					  

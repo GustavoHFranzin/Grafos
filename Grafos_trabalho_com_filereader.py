@@ -1,7 +1,6 @@
 from collections import defaultdict
 
 class grafo:
-
     def __init__(self, dicionario_grafo=None):
         if dicionario_grafo is None:
             dicionario_grafo = {}
@@ -57,13 +56,33 @@ class grafo:
             output[e] = sorted(v, reverse=False) #chris: descobri que essa é o exercicio 9, e ela ta errada, vou deixar de recordação ai e depois a gente apaga, a certa é a função abaixo V
         print(output)
 
-    def transpor_grafo(self): 
+    def transpor_grafo(self): #usar somente com grafo direcionado
+        if Grafo_Direcionado_Boolean == False:
+            print()
+            print("Não se pode utilizar essa função com um grafo não direcionado (ou undirected).")
+            print()
+            return
         graph_trans = defaultdict(list)
         for source, targets in self.dicionario_grafo.items(): 
             for target in targets: 
                 graph_trans[target].append(source)
         graph_trans = dict(graph_trans)
         print(graph_trans)     
+
+    def graph_complement(self):
+        #transpõe o grafo, pra ele ficar com todas as chaves e não dar erro, ISSO É UM WORKAROUND COM UMA FUNÇÃO QUE EU JÁ TINHA E NÃO FOI TESTADO DEVIDAMENTE
+        graph_trans = defaultdict(list)
+        for source, targets in self.dicionario_grafo.items(): 
+            for target in targets: 
+                graph_trans[target].append(source)
+        graph_trans = dict(graph_trans)
+        #complementa o grafo transposto
+        complement = {}
+        for u in graph_trans:
+            complement[u] = set(graph_trans.keys()) - set(graph_trans[u]) - {u}
+        print(complement)
+        return complement
+
 
 # Create the dictionary with graph elements
 graph = {
@@ -132,15 +151,14 @@ g = grafo(grafos)
 #o grafo transposto!!! Confere isso ai
 #chris: às vezes retorna, às vezes não, bizarro
 
-print('')
-#print('Arestas: ')
-
+print()
+print('Grafo: ')
 g.print_grafo_lista()
-#print('')
-#print(g.find_edges())
-print('')
+print()
 print('Grafo transposto:')
 g.transpor_grafo()
-print('')
 print('O grafo é direcionado?: ', Grafo_Direcionado_Boolean)
-print('')
+print()
+print('Complemento do Grafo: ')
+g.graph_complement()
+print()

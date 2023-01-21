@@ -1,4 +1,4 @@
-directed
+undirected
 a b
-b c
-c d
+a c
+a d
