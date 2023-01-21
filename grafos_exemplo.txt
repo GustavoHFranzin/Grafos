@@ -1,13 +1,17 @@
-grafo_undirected =  { "a" : ["c"],
-					  "b" : ["c", "e"],
-					  "c" : ["a", "b", "d", "e"],
-					  "d" : ["c"],
-					  "e" : ["c", "b"],
-					  "f" : []
+grafo_undirected =  
+					{ 
+						"a" : ["c"],
+						"b" : ["c", "e"],
+						"c" : ["a", "b", "d", "e"],
+						"d" : ["c"],
+						"e" : ["c", "b"],
+						"f" : []
 					}
 					
 					
-grafo_directed   =  {   "a" : ["c"],
+grafo_directed   =  
+					{   
+						"a" : ["c"],
 						"b" : ["c", "e"],
 						"c" : ["d", "e"],
 						"d" : ["e"],
@@ -15,17 +19,29 @@ grafo_directed   =  {   "a" : ["c"],
 						"f" : []
 					}
 					
-grafo_pra_complementar = {
+grafo_para_complementar = 
+
+					{
 						'a' : ['b', 'c', 'd'],
 						'b' : [],
 						'c' : [],
 						'd' : []
 					}
 				
-grafo_com_complemento = {
+complemento_do_grafo = 
+
+					{
 						'a' : [],
-						'b' : ['a', 'c', 'd'],
-						'c' : ['a', 'b', 'd'],
-						'd' : ['a', 'b', 'c']
+						'b' : ['c', 'd'],
+						'c' : ['b', 'd'],
+						'd' : ['b', 'c']
+					}
+
+grafo_completo = 
+					{
+						'a' : ['b', 'c', 'd'],
+						'b' : ['c', 'd'],
+						'c' : ['b', 'd'],
+						'd' : ['b', 'c']
 					}
 					  
