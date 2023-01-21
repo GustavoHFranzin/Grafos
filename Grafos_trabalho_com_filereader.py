@@ -57,7 +57,7 @@ class grafo:
         print(output)
 
     def transpor_grafo(self): #usar somente com grafo direcionado
-        if Grafo_Direcionado_Boolean == False:
+        if Grafo_Direcionado_Boolean == False: #caso não for direcionado retorna
             print()
             print("Não se pode utilizar essa função com um grafo não direcionado (ou undirected).")
             print()
