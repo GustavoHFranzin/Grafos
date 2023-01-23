@@ -1,3 +1,8 @@
+"""
+Christopher Benati Mattos - RA 124994
+Gustavo Henrique Franzin - RA 124346
+"""
+
 class grafo:
 
     def __init__(self, dicionario_grafo=None):
