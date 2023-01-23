@@ -1,3 +1,8 @@
+"""
+Christopher Benati Mattos - RA 124994
+Gustavo Henrique Franzin - RA 124346
+"""
+
 from collections import defaultdict
 
 class grafo:
@@ -7,6 +12,9 @@ class grafo:
         self.dicionario_grafo = dicionario_grafo
 
     def get_vertices(self):#Mostra todas os vertices NÃO orientado
+        print()
+        print('Vertices: ')
+        print(list(self.dicionario_grafo.keys())) 
         return list(self.dicionario_grafo.keys())
 
     def find_edges(self):#Printa todas as arestas NÃO orientado
@@ -15,7 +23,9 @@ class grafo:
             for next_vertex in self.dicionario_grafo[vertex]:
                 if {next_vertex, vertex} not in edge_name:
                     edge_name.append({next_vertex, vertex})
-
+        print()
+        print('Arestas: ')
+        print(edge_name)
         return edge_name
 
     def add_vertice(self, vertice):#NÃO orientado
@@ -50,12 +60,6 @@ class grafo:
             matrix[a][b] = 2 if (a == b) else 1
         print(matrix)
 
-    def grafo_transposto(self):#Tem que verificar se essa função está de correta, é pra ser utilizada nos grafos que são Direcionados, né? Faça testes mudando 
-        output = {}                                 #direto lá no diciionário 'grafo_direcionado' pra ver se o output está de acordo com a definição de transposto
-        for e, v in self.dicionario_grafo.items(): # chris: Mexi aqui pra ele ler o grafo pra cada grafo que tu colocar
-            output[e] = sorted(v, reverse=False) #chris: descobri que essa é o exercicio 9, e ela ta errada, vou deixar de recordação ai e depois a gente apaga, a certa é a função abaixo V
-        print(output)
-
     def transpor_grafo(self): #usar somente com grafo direcionado
         if Grafo_Direcionado_Boolean == False: #caso não for direcionado retorna
             print()
@@ -69,53 +73,21 @@ class grafo:
         graph_trans = dict(graph_trans)
         print(graph_trans)     
 
-    def graph_complement(self):
-        #transpõe o grafo, pra ele ficar com todas as chaves e não dar erro, ISSO É UM WORKAROUND COM UMA FUNÇÃO QUE EU JÁ TINHA E NÃO FOI TESTADO DEVIDAMENTE
+    def complemento_grafo(self):
+        #transpõe o grafo, pra ele ficar com todas as chaves e não dar erro, ISSO É UM WORKAROUND
         graph_trans = defaultdict(list)
         for source, targets in self.dicionario_grafo.items(): 
             for target in targets: 
                 graph_trans[target].append(source)
         graph_trans = dict(graph_trans)
-        #complementa o grafo transposto
-        complement = {}
+        #acha o complemento do grafo transposto
+        complemento = {}
         for u in graph_trans:
-            complement[u] = set(graph_trans.keys()) - set(graph_trans[u]) - {u}
-        print(complement)
-        return complement
+            complemento[u] = set(graph_trans.keys()) - set(graph_trans[u]) - {u}
+        print(complemento)
+        return complemento
 
-
-# Create the dictionary with graph elements
-graph = {
-            'a': ['b', 'c'],
-            'b': ['c', 'd', 'e'],
-            'c': ['d'],
-            'd': ['e'],
-            'e': []
-    }
-
-grafo_complemento_de_graph = {
-            'a': ['d'],
-            'b': [],
-            'c': [],
-            'd': [],
-            'e': ['e']
-    }
-
-graph_completo = {
-            'a': ['b', 'c', 'd'],
-            'b': ['c', 'd', 'e'],
-            'c': ['d'],
-            'd': ['e'],
-            'e': ['a']
-    }
-
-grafo_direcionado = {
-            'a': [],
-            'b': ['a', 'e'],
-            'c': ['a', 'b', 'd'],
-            'd': ['b'],
-            'e': ['b', 'd']
-    }
+#fim das funções da classe
 
 def dic_read_append(arquivo):
     lista_arquivo = open(arquivo,"r").readlines() # Lê o arquivo e usa a readline pra transformar em lista e não em TextIOWrapper
@@ -127,7 +99,7 @@ def dic_read_append(arquivo):
             key, value = line.strip().split(" ") # Separa cada linha em dois valores (chave e valor) usando o Split(" ") para separar o espaço e o strip() para remover qualquer espaçamento
             dicionario[key].append(value) # Acrescenta os valores no dicionário sem escrever por cima
         for key, lista in list(dicionario.items()): #para as variáveis key e lista na lista do dicionário, faz V
-            for value in lista: # para cada valor em I faz V
+            for value in lista: # para cada valor em lista faz V
                 if key not in dicionario[value]: # se a chave nao estiver no dicionario, faz V
                     dicionario[value].append(key) # Acrescenta a chave nos valores
         dicionario = dict(dicionario) #passa a variável dict para lista
@@ -143,13 +115,8 @@ def dic_read_append(arquivo):
         return dicionario, Grafo_Direcionado_Boolean #retorna duas variáveis
 
 grafos, Grafo_Direcionado_Boolean = dic_read_append('grafos1.txt')
-#print(Grafo_Direcionado_Boolean)
 
 g = grafo(grafos)
-
-#Me parece que ao usar a função find_edge com um grafo DIRECIONADO ela já me retorna
-#o grafo transposto!!! Confere isso ai
-#chris: às vezes retorna, às vezes não, bizarro
 
 print()
 print('Grafo: ')
@@ -160,5 +127,13 @@ g.transpor_grafo()
 print('O grafo é direcionado?: ', Grafo_Direcionado_Boolean)
 print()
 print('Complemento do Grafo: ')
-g.graph_complement()
+g.complemento_grafo()
+g.get_vertices()
+g.find_edges()
+print()
+g.add_vertice('f')
+g.print_grafo_lista()
+print()
+g.remove_vertice('f')
+g.print_grafo_lista()
 print()
